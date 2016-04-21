@@ -1,6 +1,5 @@
 package b.main;
 
-import java.awt.Frame;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
@@ -19,6 +18,7 @@ public class Root {
 	public static boolean player1Turn;
 	public static boolean pregame = true;
 	public static int[] turnCounter;
+	public static boolean[] keys;
 
 	public static void main(String[] args) {
 		win = new Window();
@@ -34,6 +34,8 @@ public class Root {
 		turnCounter = new int[2];
 		turnCounter[0] = 0;
 		turnCounter[1] = 0;
+		keys = new boolean[19];
+		for(int i = 0; i < keys.length; i++) keys[i] = false;
 		run();
 	}
 	
@@ -44,7 +46,6 @@ public class Root {
 		double nspt = 1000000000L / 30D;//Nano Seconds Per Tick
 		int[] oldVals = new int[2];
 		oldVals[0] = 0; oldVals[1] = 0;
-		String pw;
 		while(running) {
 			delta += (newTime - oldTime) / nspt;
 			oldTime = newTime;
@@ -65,17 +66,17 @@ public class Root {
 					}
 					if(turnOver && !player1Turn) {
 						pregame = false;
-						while(((pw = JOptionPane.showInputDialog("Enter Player " + ((player1Turn) ? "1" : "2") + " Password")).compareTo(pws[(player1Turn) ? 0 : 1])) != 0);
+						while(((JOptionPane.showInputDialog("Enter Player " + ((player1Turn) ? "1" : "2") + " Password")).compareTo(pws[(player1Turn) ? 0 : 1])) != 0);
 					} else if(turnOver) {
 						player1Turn = !player1Turn;
-						while(((pw = JOptionPane.showInputDialog("Enter Player " + ((player1Turn) ? "1" : "2") + " Password")).compareTo(pws[(player1Turn) ? 0 : 1])) != 0);
+						while(((JOptionPane.showInputDialog("Enter Player " + ((player1Turn) ? "1" : "2") + " Password")).compareTo(pws[(player1Turn) ? 0 : 1])) != 0);
 					}
 				} else {
 					int plr = (player1Turn) ? 0 : 1;
 					if(oldVals[plr] != turnCounter[plr]) {
 						oldVals[plr] = turnCounter[plr];
 						player1Turn = !player1Turn;
-						while(((pw = JOptionPane.showInputDialog("Enter Player " + ((player1Turn) ? "1" : "2") + " Password")).compareTo(pws[(player1Turn) ? 0 : 1])) != 0);
+						while(((JOptionPane.showInputDialog("Enter Player " + ((player1Turn) ? "1" : "2") + " Password")).compareTo(pws[(player1Turn) ? 0 : 1])) != 0);
 					}
 					boolean run = false;
 					for(Ship s : board.ships[plr]) if(s.isAlive()) {
