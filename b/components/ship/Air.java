@@ -5,18 +5,12 @@ import java.awt.Graphics;
 import b.components.Ship;
 import b.main.Root;
 
-public class Air implements Ship {
-	private int x;
-	private int y;
-	private boolean isalive = true;
-	private int health = 5;
-	private int length = 5;
-	private boolean partoY = true;
-	private boolean notIt = false;
+public class Air extends Ship {
 
 	public Air(int x, int y) {
-		this.x = x;
-		this.y = y;
+		super(x, y);
+		length = 5;
+		health = 5;
 	}
 	
 	@Override
@@ -36,67 +30,6 @@ public class Air implements Ship {
 		} else {
 			g.fillOval(x * Root.board.square, y * Root.board.square, Root.board.square * length, Root.board.square);
 		}
-	}
-	
-	@Override
-	public boolean isAlive() {
-		return isalive;
-	}
-
-	@Override
-	public void kill() {
-		isalive = false;
-	}
-
-	@Override
-	public int getLength() {
-		return length;
-	}
-
-	@Override
-	public int getHealth() {
-		return health;
-	}
-
-	@Override
-	public void decrementHealth() {
-		health--;
-		if(health <= 0) kill();
-	}
-
-	@Override
-	public int getX() {
-		return x;
-	}
-
-	@Override
-	public int getY() {
-		return y;
-	}
-
-	@Override
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	@Override
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	@Override
-	public boolean isllToY() {
-		return partoY;
-	}
-
-	@Override
-	public void setllToY(boolean p) {
-		partoY = p;
-	}
-
-	@Override
-	public void toggledSelected() {
-		notIt = !notIt;
 	}
 
 }
