@@ -50,61 +50,29 @@ public class Board implements drawable {
 			ships[i][15] = new Submarine(18, 15);
 		}
 	}
-
+	
 	public void draw(Graphics g) {
 		g.setColor(Color.black);
+		int dim;
+		if(Root.win.getWidth() >= Root.win.getHeight()) dim = Root.win.getHeight() * 12/16;
+		else dim = Root.win.getWidth() * 12/16;
+		square = dim / 16;
+		dim = square * 16;
 		int plr = (Root.player1Turn) ? 0 : 1;
-		if(Root.win.getWidth() >= Root.win.getHeight()) {
-			double width = (Root.win.getHeight() * 12/16);
-			square = (int) (width / 16);
-			if(Root.pregame) {
-				for(double i = 0; i < width; i+= (width / 16)) {
-					g.drawRect((int) i, 0, (int) (width) / 16, (int) width);
-					g.drawRect(0, (int) i, (int) width, (int) (width) / 16);
-				}
-				g.setColor(Color.LIGHT_GRAY);
-				for(Ship s : ships[plr]) s.draw(g);
-			} else {
-				g.fillRect(0, 0, (int) width, (int) width);
-				for(int x = 0; x < hits[0].length; x++) for(int y = 0; y < hits[0][x].length; y++) {
-					if(!hits[plr][x][y][0]) {
-						g.setColor(lb);
-						g.fillRect(square * x + 1, square * y + 1, square - 1, square - 1);
-					}
-					else if(hits[plr][x][y][1]) {
-						g.setColor(Color.red);
-						g.fillRect(square * x + 1, square * y + 1, square - 1, square - 1);
-					} else {
-						g.setColor(Color.white);
-						g.fillRect(square * x + 1, square * y + 1, square - 1, square - 1);
-					}
-				}
+		if(Root.pregame) {
+			for(int i = 0; i < 16; i++) {
+				g.drawRect(i * square, 0, square, dim);
+				g.drawRect(0, i * square, dim, square);
 			}
+			g.setColor(Color.LIGHT_GRAY);
+			for(Ship s : ships[plr/*(plr == 0) ? 1 : 0*/]) s.draw(g);
 		} else {
-			double height = (Root.win.getWidth() * 12/16);
-			square = (int) (height / 16);
-			if(Root.pregame) {
-				for(double i = 0; i < height; i+=(height / 16)) {
-					g.drawRect(0, (int) i, (int) height, (int) (height / 16));
-					g.drawRect((int) i, 0, (int) (height / 16), (int) height);
-				}
-				g.setColor(Color.gray);
-				for(Ship s : ships[plr]) s.draw(g);
-			} else {
-				g.fillRect(0, 0, (int) height, (int) height);
-				for(int x = 0; x < hits[0].length; x++) for(int y = 0; y < hits[0][x].length; y++) {
-					if(!hits[plr][x][y][0]) {
-						g.setColor(lb);
-						g.fillRect(square * x + 1, square * y + 1, square - 1, square - 1);
-					}
-					else if(hits[plr][x][y][1]) {
-						g.setColor(Color.red);
-						g.fillRect(square * x + 1, square * y + 1, square - 1, square - 1);
-					} else {
-						g.setColor(Color.white);
-						g.fillRect(square * x + 1, square * y + 1, square - 1, square - 1);
-					}
-				}
+			g.fillRect(0, 0, dim, dim);
+			for(int x = 0; x < hits[0].length; x++) for(int y = 0; y < hits[0][x].length; y++) {
+				if(!hits[plr][x][y][0]) g.setColor(lb);	
+				else if(hits[plr][x][y][1]) g.setColor(Color.red);
+				else g.setColor(Color.white);
+				g.fillRect(square * x + 1, square * y + 1, square - 1, square - 1);
 			}
 		}
 		g.setColor(Color.black);
@@ -134,7 +102,7 @@ public class Board implements drawable {
 		else grid = (Root.win.getHeight() * 12/16);
 		double square = grid / 16;
 		int simpleX = (int) (x / square);
-		int simpleY = (int) (y / square) - 1;
+		int simpleY = (int) (y / square);
 		int plr = (Root.player1Turn) ? 0 : 1;
 		if(Root.pregame) {
 			if(x > grid || y > grid) {
