@@ -89,7 +89,7 @@ public class Root {
 			}
 			newTime = System.nanoTime();
 		}
-		JOptionPane.showInputDialog("GAME OVER! PLAYER " + ((player1Turn) ? "1" : "2") + " WON!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		JOptionPane.showMessageDialog(null, "GAME OVER! PLAYER " + ((player1Turn) ? "1" : "2") + " WON!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		win.dispatchEvent(new WindowEvent(win, WindowEvent.WINDOW_CLOSING));
 	}
 
