@@ -1,25 +1,53 @@
 package b.components;
 
+import java.awt.Graphics;
+
 import b.main.drawable;
 
-public interface Ship extends drawable {
+public class Ship implements drawable {
 	
-	public boolean isAlive();
-	public void kill();
+	public int x, y, length, health;
+	public boolean notIt, partoY, isalive;
 	
-	public int getLength();
+	public Ship(int X, int Y) {
+		x = X;
+		y = Y;
+		notIt = false;
+		partoY = true;
+		isalive = true;
+	}
 	
-	public int getHealth();
-	public void decrementHealth();
+	public boolean isAlive() {
+		return isalive;
+	}
+	public void kill() {
+		isalive = false;
+	}
 	
-	public int getX();
-	public int getY();
-	public void setX(int x);
-	public void setY(int y);
+	public int getLength() {
+		return length;
+	}
 	
-	public boolean isllToY();
-	public void setllToY(boolean p);
+	public int getHealth() {
+			return health;
+	}
+	public void decrementHealth() {
+		health--;
+	}
 	
-	public void toggledSelected();
+	public int getX(){ return x; }
+	public int getY(){ return y; }
+	public void setX(int x){ this.x = x; }
+	public void setY(int y){ this.y = y; }
+	
+	public boolean isllToY(){ return partoY; }
+	public void setllToY(boolean p){ partoY = p; }
+	
+	public void toggledSelected(){ notIt = !notIt; }
+
+	@Override
+	public void draw(Graphics g) {
+		
+	}
 	
 }
